@@ -40,7 +40,9 @@ namespace SP
                 Thickness_ST = 0
             };
 
+            // Добавить артикул СП
             sp.Article = textBox.Text;
+            // Разделить строку
             string[] words = sp.Article.Split(new char[] { '/' });
 
             int a1 = 0;
