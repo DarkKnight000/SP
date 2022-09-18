@@ -26,63 +26,70 @@ namespace SP
             InitializeComponent();
         }
 
-        string spack;
-
+        // Расчитать:
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            spack = textBox.Text;
+            calc();
+        }
 
+        private void calc()
+        {
             SP sp = new SP()
             {
                 Thickness_SP = 0,
                 Thickness_ST = 0
             };
 
-            sp.Article = spack;
-            spack = spack.Replace(" ", "");
-            string[] words = spack.Split(new char[] { '/' });
+            sp.Article = textBox.Text;
+            string[] words = sp.Article.Split(new char[] { '/' });
+
+            int a1 = 0;
+            int a2 = 0;
 
             try
             {
+                // Однокамерный СП:
+                sp.Cam = 1;
+
+                try
+                {
+                    words[0] = words[0].Substring(0, 2);
+                    a1 += int.Parse(words[0]);
+                }
+                catch
+                {
+                    words[0] = words[0].Substring(0, 1);
+                    a1 += int.Parse(words[0]);
+                }
+
+                try
+                {
+                    words[1] = words[1].Substring(0, 2);
+                    a2 += int.Parse(words[1]);
+                }
+                catch
+                {
+                    words[1] = words[1].Substring(0, 1);
+                    a2 += int.Parse(words[1]);
+                }
+
+                try
+                {
+                    words[2] = words[2].Substring(0, 2);
+                    a1 += int.Parse(words[2]);
+                }
+                catch
+                {
+                    words[2] = words[2].Substring(0, 1);
+                    a1 += int.Parse(words[2]);
+                }
+                sp.Thickness_ST = a1;
+                sp.Thickness_SP = a2 + a1;
+
+                // Если двухкамерный СП:
                 if (words.Length == 5)
                 {
                     sp.Cam = 2;
-
-                    int a1 = 0;
-                    int a2 = 0;
-
-                    try
-                    {
-                        words[0] = words[0].Substring(0, 2);
-                        a1 += int.Parse(words[0]);
-                    }
-                    catch
-                    {
-                        words[0] = words[0].Substring(0, 1);
-                        a1 += int.Parse(words[0]);
-                    }
-
-                    try
-                    {
-                        words[1] = words[1].Substring(0, 2);
-                        a2 += int.Parse(words[1]);
-                    }
-                    catch
-                    {
-                        words[1] = words[1].Substring(0, 1);
-                        a2 += int.Parse(words[1]);
-                    }
-
-                    try
-                    {
-                        words[2] = words[2].Substring(0, 2);
-                        a1 += int.Parse(words[2]);
-                    }
-                    catch
-                    {
-                        words[2] = words[2].Substring(0, 1);
-                        a1 += int.Parse(words[2]);
-                    }
 
                     try
                     {
@@ -106,75 +113,30 @@ namespace SP
                         a1 += int.Parse(words[4]);
                     }
 
-
                     sp.Thickness_ST = a1;
                     sp.Thickness_SP = a2 + a1;
 
                 }
-                else if (words.Length == 3)
-                {
-                    sp.Cam = 1;
-
-                    int a1 = 0;
-                    int a2 = 0;
-
-                    try
-                    {
-                        words[0] = words[0].Substring(0, 2);
-                        a1 += int.Parse(words[0]);
-                    }
-                    catch
-                    {
-                        words[0] = words[0].Substring(0, 1);
-                        a1 += int.Parse(words[0]);
-                    }
-
-                    try
-                    {
-                        words[1] = words[1].Substring(0, 2);
-                        a2 += int.Parse(words[1]);
-                    }
-                    catch
-                    {
-                        words[1] = words[1].Substring(0, 1);
-                        a2 += int.Parse(words[1]);
-                    }
-
-                    try
-                    {
-                        words[2] = words[2].Substring(0, 2);
-                        a1 += int.Parse(words[2]);
-                    }
-                    catch
-                    {
-                        words[2] = words[2].Substring(0, 1);
-                        a1 += int.Parse(words[2]);
-                    }
-
-                    sp.Thickness_ST = a1;
-                    sp.Thickness_SP = a2 + a1;
-
-                    dataGrid.Items.Add(sp);
-                }
-                else
-                {
-                    MessageBox.Show("Некорректный артикул СП");
-                }
+                dataGrid.Items.Add(sp);     // Добавление данных в таблицу
             }
             catch
             {
                 MessageBox.Show("Некорректный артикул СП");
             }
-            
-
         }
 
-        public class SP
+        private class SP
         {
-            public string Article { get; set; }
-            public int Cam { get; set; }
-            public int Thickness_SP { get; set; }
-            public int Thickness_ST { get; set; }
+            public string Article { get; set; }     // Артикул СП
+            public int Cam { get; set; }            // Камерность
+            public int Thickness_SP { get; set; }   // Толщина СП
+            public int Thickness_ST { get; set; }   // Толщина стекла
+        }
+
+        // Очистить таблицу:
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            dataGrid.Items.Clear();
         }
     }
 }

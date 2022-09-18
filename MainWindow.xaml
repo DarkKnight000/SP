@@ -5,30 +5,74 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SP"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" 
+        Height="450" 
+        Width="800">
     <Grid>
-        <TextBox x:Name="textBox" HorizontalAlignment="Center" Margin="0,50,100,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="500" FontSize="16"/>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Center" Height="300" Margin="0,0,0,10" VerticalAlignment="Bottom" Width="700">
-            <DataGrid.Columns>
-                <DataGridTextColumn 
-                    Binding="{Binding Article}"
-                    ClipboardContentBinding="{x:Null}" 
-                    Header="Артикул СП"/>
-                <DataGridTextColumn 
-                    Binding="{Binding Cam}"
-                    ClipboardContentBinding="{x:Null}" 
-                    Header="Камерность"/>
-                <DataGridTextColumn 
-                    Binding="{Binding Thickness_SP}"
-                    ClipboardContentBinding="{x:Null}" 
-                    Header="Толщина СП"/>
-                <DataGridTextColumn 
-                    Binding="{Binding Thickness_ST}"
-                    ClipboardContentBinding="{x:Null}" 
-                    Header="Толщина стекла"/>
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button x:Name="button" Content="Расчитать" HorizontalAlignment="Left" Margin="602,50,0,0" VerticalAlignment="Top" FontSize="16" Padding="5,0" Click="button_Click"/>
-
+        <StackPanel 
+            Margin="0,50,0,0" 
+            Orientation="Horizontal" 
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Top">
+            <TextBox 
+                x:Name="textBox" 
+                HorizontalAlignment="Center" 
+                TextWrapping="Wrap" 
+                VerticalAlignment="Top"
+                Width="500"
+                FontSize="16"
+            />
+            <Button 
+                x:Name="button" 
+                Content="Расчитать" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                FontSize="16" 
+                Padding="5,0"
+                Click="button_Click"
+            />
+        </StackPanel>
+        <StackPanel 
+            Margin="0,86,0,0" 
+            Orientation="Vertical" 
+            HorizontalAlignment="Center">
+            <Button 
+                x:Name="button1" 
+                Content="Очистить" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" 
+                Width="75" 
+                Click="button1_Click"
+            />
+            <DataGrid 
+                x:Name="dataGrid" 
+                HorizontalAlignment="Center"
+                Height="300" 
+                VerticalAlignment="Bottom" 
+                Width="700"
+                CanUserAddRows="False"
+                CanUserDeleteRows="False"
+                CanUserResizeRows="True"
+                IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn 
+                        Binding="{Binding Article}"
+                        ClipboardContentBinding="{x:Null}" 
+                        Header="Артикул СП"/>
+                    <DataGridTextColumn 
+                        Binding="{Binding Cam}"
+                        ClipboardContentBinding="{x:Null}" 
+                        Header="Камерность"/>
+                    <DataGridTextColumn 
+                        Binding="{Binding Thickness_SP}"
+                        ClipboardContentBinding="{x:Null}" 
+                        Header="Толщина СП"/>
+                    <DataGridTextColumn 
+                        Binding="{Binding Thickness_ST}"
+                        ClipboardContentBinding="{x:Null}" 
+                        Header="Толщина стекла"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </Grid>
 </Window>
